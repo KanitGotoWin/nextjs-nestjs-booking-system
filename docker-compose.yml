@@ -5,11 +5,11 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: insightly
+      POSTGRES_DB: booking
     ports:
       - "5434:5432"
     volumes:
-      - db-data-insightly:/var/lib/postgresql/data
+      - db-data-booking:/var/lib/postgresql/data
 
   pgadmin:
     image: dpage/pgadmin4
@@ -22,8 +22,8 @@ services:
     depends_on:
       - db
     volumes:
-      - pgadmin-data-insightly:/var/lib/pgadmin
+      - pgadmin-data-booking:/var/lib/pgadmin
 
 volumes:
-  db-data-insightly:
-  pgadmin-data-insightly:
+  db-data-booking:
+  pgadmin-data-booking:

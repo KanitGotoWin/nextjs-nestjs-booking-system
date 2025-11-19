@@ -1,5 +1,5 @@
 {
-  "name": "fullstack-insightly",
+  "name": "booking",
   "private": true,
   "scripts": {
     "build": "turbo run build",
