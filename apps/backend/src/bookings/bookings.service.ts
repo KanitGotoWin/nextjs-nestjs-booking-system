@@ -12,12 +12,14 @@ import { ServiceResponseBookingDto } from './dto/service-reponse-booking.dto';
 import { ListResponseBookingDto } from './dto/list-response-booking.dto';
 import { BookingItemDto } from './dto/booking-item.dto';
 import { ListResponseBookingStatus } from './dto/list-response-booking-status';
+import { BookingsGateway } from './bookings.gateway';
 
 @Injectable()
 export class BookingsService {
   constructor(
     private readonly bookingsRepository: BookingsRepository,
     private readonly bookingConfigsRepository: BookingConfigsRepository,
+    private readonly bookingsGateway: BookingsGateway,
   ) {}
 
   async create(
@@ -28,25 +30,35 @@ export class BookingsService {
       this.bookingsRepository.findByName(createBookingDto.name),
     ]);
 
-    if (existingEmail)
-      throw new BadRequestException('Email is already booked.');
-    if (existingName) throw new BadRequestException('Name is already booked.');
+    if (existingEmail) throw new BadRequestException('Email is already booked');
+    if (existingName) throw new BadRequestException('Name is already booked');
 
-    const maxCapacity =
+    const maxCapacityStr =
       await this.bookingConfigsRepository.getValueByKey('capacity');
-    const bookingCount = await this.bookingsRepository.countBooking();
 
-    if (maxCapacity === null) {
+    if (maxCapacityStr === null) {
       throw new InternalServerErrorException(
         'Booking capacity configuration missing.',
       );
     }
 
-    if (bookingCount >= +maxCapacity) {
-      throw new ConflictException('All ticket are booked.');
+    const maxCapacity = Number(maxCapacityStr);
+    const bookingCount = await this.bookingsRepository.countBooking();
+
+    if (bookingCount >= maxCapacity) {
+      throw new ConflictException('All ticket are booked');
     }
 
-    return await this.bookingsRepository.create(createBookingDto);
+    const booking = await this.bookingsRepository.create(createBookingDto);
+    const updatedCount = await this.bookingsRepository.countBooking();
+    this.bookingsGateway.reRenderBookings();
+
+    //Notify if full after booked (แจ้งเตือนเต็ม)
+    if (updatedCount >= maxCapacity) {
+      this.bookingsGateway.notifyFull();
+    }
+
+    return booking;
   }
 
   async findAll(): Promise<ListResponseBookingDto> {
@@ -79,13 +91,33 @@ export class BookingsService {
     };
   }
 
-  async remove(email: string): Promise<void> {
-    const existingEmail = await this.bookingsRepository.findByEmail(email);
+  async remove(email: string): Promise<string> {
+    const existingBooking = await this.bookingsRepository.findByEmail(email);
 
-    if (!existingEmail) {
-      throw new NotFoundException('Unable to cancel, email not found.');
+    if (!existingBooking) {
+      throw new NotFoundException('Unable to cancel, email not found');
     }
 
-    return await this.bookingsRepository.softDelete(email);
+    await this.bookingsRepository.remove(email);
+
+    this.bookingsGateway.reRenderBookings();
+
+    const maxCapacityStr =
+      await this.bookingConfigsRepository.getValueByKey('capacity');
+
+    if (maxCapacityStr === null) {
+      return existingBooking.name;
+    }
+
+    const maxCapacity = Number(maxCapacityStr);
+    const notifyCapacity = maxCapacity - 1;
+    const countBooking = await this.bookingsRepository.countBooking();
+
+    //Notify if booking is canceled previously (แจ้งเตือนว่าง หากก่อนหน้านี้เต็ม)
+    if (countBooking === notifyCapacity) {
+      this.bookingsGateway.notifyAvailable();
+    }
+
+    return existingBooking.name;
   }
 }

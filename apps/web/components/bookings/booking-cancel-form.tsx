@@ -1,27 +1,25 @@
 "use client";
 
 import { useState } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createBooking } from "@/server/bookings";
-import { toast } from "sonner";
-import { LucideTicketPlus, TicketCheck } from "lucide-react";
-import { AxiosError } from "axios";
+import BookingCancelButton from "./booking-cancel-button";
 import BookingInput from "./booking-input";
-import BookingButton from "./booking-button";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { CheckIcon } from "lucide-react";
+import { toast } from "sonner";
+import { AxiosError } from "axios";
+import { deleteBooking } from "@/server/bookings";
 
 export default function BookingForm() {
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
   const queryClient = useQueryClient();
   const mutation = useMutation({
-    mutationFn: createBooking,
+    mutationFn: deleteBooking,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["bookings"] });
-      setName("");
       setEmail("");
-      toast.success(`จองสำเร็จ`, {
-        icon: <TicketCheck />,
+      toast.success(`การจองถูกยกเลิกแล้ว`, {
+        icon: <CheckIcon />,
       });
     },
     onError: (error: unknown) => {
@@ -33,13 +31,8 @@ export default function BookingForm() {
           message = message[0];
         }
 
-        if (status === 409) {
-          toast.error("ขณะนี้เต็มแล้ว");
-          return;
-        }
-
-        if (status === 400) {
-          toast.error(message || "Please check your email and name again.");
+        if (status === 404) {
+          toast.error(message || "Please check your email again.");
           return;
         }
 
@@ -60,27 +53,29 @@ export default function BookingForm() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    mutation.mutate({ name, email });
+
+    if (!email.trim()) {
+      toast.error("Please enter your email");
+      return;
+    }
+
+    mutation.mutate(email);
   };
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-5">
       <BookingInput
-        type="text"
-        placeholder="Your name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <BookingInput
-        type="text"
+        type="email"
         placeholder="Your email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
-      <BookingButton className="mt-3 text-xl" isLoading={mutation.isPending}>
-        <LucideTicketPlus className="!w-[1.5rem] !h-[1.5rem]" />
-        Confirm booking
-      </BookingButton>
+      <BookingCancelButton
+        className="mt-3 text-xl"
+        isLoading={mutation.isPending}
+      >
+        Confirm cancel
+      </BookingCancelButton>
     </form>
   );
 }

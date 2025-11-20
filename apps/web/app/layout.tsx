@@ -4,6 +4,7 @@ import "./globals.css";
 import Providers from "./providers";
 import Header from "@/components/layout/header";
 import { Toaster } from "@/components/ui/sonner";
+import BookingSocketWrapper from "@/components/bookings/booking-socket-wrapper";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -29,10 +30,19 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <Providers>
           <Header />
-          <main className="px-4 xl:px-0 max-w-5xl mx-auto py-4 mt-4">
-            {children}
-          </main>
-          <Toaster richColors closeButton duration={2000} />
+          <BookingSocketWrapper>
+            <main>
+              {children}
+            </main>
+          </BookingSocketWrapper>
+          <Toaster
+            visibleToasts={2}
+            expand
+            theme="light"
+            richColors
+            closeButton
+            duration={2000}
+          />
         </Providers>
       </body>
     </html>

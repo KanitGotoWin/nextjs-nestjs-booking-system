@@ -24,13 +24,13 @@ export class BookingsRepository {
 
   async findByEmail(email: string): Promise<Booking | null> {
     return await this.prisma.booking.findUnique({
-      where: { email },
+      where: { email, deletedAt: null },
     });
   }
 
   async findByName(name: string): Promise<Booking | null> {
     return await this.prisma.booking.findUnique({
-      where: { name },
+      where: { name, deletedAt: null },
     });
   }
 
@@ -42,12 +42,14 @@ export class BookingsRepository {
 
   async softDelete(email: string): Promise<void> {
     await this.prisma.booking.update({
-      where: { email },
+      where: { email, deletedAt: null },
       data: { deletedAt: new Date() },
     });
   }
 
   async countBooking(): Promise<number> {
-    return await this.prisma.booking.count();
+    return await this.prisma.booking.count({
+      where: { deletedAt: null },
+    });
   }
 }

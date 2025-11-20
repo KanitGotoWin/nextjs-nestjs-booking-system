@@ -1,7 +1,7 @@
 import { CreateUserDto } from "@repo/types";
 import axios from "axios";
 
-const API_URL = "http://localhost:5005/user";
+const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/user`;
 
 export async function getUsers() {
   try {
@@ -12,7 +12,7 @@ export async function getUsers() {
     }
 
     return res.data;
-  } catch (error) {
+  } catch {
     return [];
   }
 }
@@ -21,6 +21,6 @@ export async function createUser(createUserDto: CreateUserDto) {
   return await axios.post(`${API_URL}`, createUserDto);
 }
 
-export async function deleteUser(id: number){
+export async function deleteUser(id: number) {
   return await axios.delete(`${API_URL}/${id}`);
 }

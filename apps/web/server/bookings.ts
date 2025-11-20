@@ -5,7 +5,7 @@ import {
 } from "@repo/types";
 import axios from "axios";
 
-const API_URL = "http://localhost:5005/bookings";
+const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/bookings`;
 
 export async function getBookings() {
   try {

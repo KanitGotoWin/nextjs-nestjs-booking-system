@@ -19,7 +19,7 @@ export default function Navbar() {
 
   return (
     <nav className="bg-white shadow-md w-full z-50">
-      <div className="px-4 xl:px-0 max-w-5xl mx-auto py-4 flex items-center justify-between">
+      <div className="px-4 xl:px-0 max-w-7xl mx-auto py-4 flex items-center justify-between">
         <Link
           href="/"
           className="text-xl text-black flex items-center gap-2 font-semibold"
