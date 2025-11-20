@@ -1,34 +1,63 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Body, Patch, Param, Get } from '@nestjs/common';
 import { BookingConfigsService } from './booking-configs.service';
-import { CreateBookingConfigDto } from './dto/create-booking-config.dto';
+import {
+  ApiInternalServerErrorResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiParam,
+} from '@nestjs/swagger';
 import { UpdateBookingConfigDto } from './dto/update-booking-config.dto';
+import { ServiceResponseBookingConfigDto } from './dto/service-response-booking-config.dto';
 
 @Controller('booking-configs')
 export class BookingConfigsController {
   constructor(private readonly bookingConfigsService: BookingConfigsService) {}
-
-  @Post()
-  create(@Body() createBookingConfigDto: CreateBookingConfigDto) {
-    return this.bookingConfigsService.create(createBookingConfigDto);
-  }
-
   @Get()
-  findAll() {
-    return this.bookingConfigsService.findAll();
+  @ApiOperation({ summary: 'Get capacity value' })
+  @ApiOkResponse({
+    type: String,
+    description: 'Get capacity value',
+  })
+  @ApiInternalServerErrorResponse({
+    description: 'Booking capacity configuration missing',
+    schema: {
+      example: {
+        message: 'Booking capacity configuration missing',
+        error: 'Internal Server Error',
+        statusCode: 500,
+      },
+    },
+  })
+  async getCapacity(): Promise<string> {
+    return await this.bookingConfigsService.getCapacity();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.bookingConfigsService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateBookingConfigDto: UpdateBookingConfigDto) {
-    return this.bookingConfigsService.update(+id, updateBookingConfigDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.bookingConfigsService.remove(+id);
+  @Patch(':key')
+  @ApiParam({
+    name: 'key',
+    type: String,
+    description: 'Key to update',
+  })
+  @ApiOperation({ summary: 'Update config value by key' })
+  @ApiOkResponse({
+    type: ServiceResponseBookingConfigDto,
+    description: 'Value of the request key updated',
+    schema: {},
+  })
+  @ApiInternalServerErrorResponse({
+    description: 'Key not found',
+    schema: {
+      example: {
+        message: 'Key not found',
+        error: 'Internal Server Error',
+        statusCode: 500,
+      },
+    },
+  })
+  async update(
+    @Param('key') key: string,
+    @Body() updateBookingConfigDto: UpdateBookingConfigDto,
+  ): Promise<ServiceResponseBookingConfigDto> {
+    return await this.bookingConfigsService.update(key, updateBookingConfigDto);
   }
 }

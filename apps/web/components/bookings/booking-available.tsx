@@ -17,7 +17,14 @@ export default function BookingAvailable() {
       </div>
     );
 
-  if (error) return <p>N/A</p>;
+  if (error) return <p className="text-gray-400">N/A</p>;
 
-  return <>{data.availableSeats}</>;
+  return (
+    <div className="w-full max-w-sm bg-white rounded-xl shadow-md p-4 text-center border border-gray-200">
+      <p className="text-gray-500 text-sm">Available Seats</p>
+      <p className="text-2xl font-semibold text-gray-900">
+        {data.availableSeats}
+      </p>
+    </div>
+  );
 }

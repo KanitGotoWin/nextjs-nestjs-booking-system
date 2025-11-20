@@ -67,6 +67,7 @@ export class BookingsService {
     const bookingItems: BookingItemDto[] = bookings.map((item) => ({
       name: item.name,
       email: item.email,
+      createdAt: item.createdAt,
     }));
 
     const maxCapacity =

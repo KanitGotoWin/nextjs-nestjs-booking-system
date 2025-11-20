@@ -11,7 +11,7 @@ export default function BookingSection() {
 
   return (
     <section
-      className="relative h-[95vh] w-full bg-cover bg-center"
+      className="relative h-[100vh] w-full bg-cover bg-center"
       style={{ backgroundImage: "url('/ticket3.jpg')" }}
     >
       <div className="absolute inset-0 bg-black/50"></div>

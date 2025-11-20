@@ -4,7 +4,6 @@ import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
-import { Button } from "../ui/button";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,8 +17,8 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav className="bg-white shadow-md w-full z-50">
-      <div className="px-4 xl:px-0 max-w-7xl mx-auto py-4 flex items-center justify-between">
+    <nav className="bg-gray-100 shadow-md w-full z-50">
+      <div className="px-4 xl:px-0 max-w-7xl mx-auto py-3 flex items-center justify-between">
         <Link
           href="/"
           className="text-xl text-black flex items-center gap-2 font-semibold"
@@ -64,9 +63,15 @@ function NavLinks({ onClick }: { onClick?: () => void }) {
   const links = useMemo(
     () => [
       {
+        key: "booking-list",
+        href: "/booking-list",
+        label: "Booking list",
+        isActive: pathName === "/booking-list",
+      },
+      {
         key: "booking-configs",
         href: "/booking-configs",
-        label: "Booking Config",
+        label: "Config",
         isActive: pathName === "/booking-configs",
       },
       {

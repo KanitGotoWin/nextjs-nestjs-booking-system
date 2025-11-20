@@ -1,10 +1,13 @@
+import CapacityForm from "@/components/booking-configs/capacity-form";
 import UserTitle from "@/components/ui/user-title";
-import React from "react";
 
 export default function page() {
   return (
-    <div>
-      <UserTitle title="Booking config" />
-    </div>
+    <>
+      <div className="mt-8">
+        <UserTitle title="Booking Configuration" />
+      </div>
+      <CapacityForm />;
+    </>
   );
 }

@@ -6,8 +6,8 @@ export class ListResponseBookingDto {
   @ApiProperty({
     type: [BookingItemDto],
     example: [
-      { name: 'Alice', email: 'alice@example.com' },
-      { name: 'Bob', email: 'bob@example.com' },
+      { name: 'Alice', email: 'alice@example.com', createdAt: new Date() },
+      { name: 'Bob', email: 'bob@example.com', createdAt: new Date() },
     ],
   })
   bookings: BookingItemDto[];

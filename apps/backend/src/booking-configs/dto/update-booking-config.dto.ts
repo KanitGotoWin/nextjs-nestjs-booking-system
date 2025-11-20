@@ -1,4 +1,9 @@
-import { PartialType } from '@nestjs/swagger';
-import { CreateBookingConfigDto } from './create-booking-config.dto';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsNotEmpty, IsString } from 'class-validator';
 
-export class UpdateBookingConfigDto extends PartialType(CreateBookingConfigDto) {}
+export class UpdateBookingConfigDto {
+  @ApiProperty({ example: '10' })
+  @IsString()
+  @IsNotEmpty()
+  value: string;
+}
