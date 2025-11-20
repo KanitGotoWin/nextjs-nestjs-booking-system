@@ -4,6 +4,7 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function main() {
+  const adminName: string = 'Admin';
   const adminEmail: string = 'admin@admin.com';
   const adminPassword: string = 'admin1234';
 
@@ -16,15 +17,32 @@ async function main() {
 
     await prisma.user.create({
       data: {
-        name: 'Admin',
+        name: adminName,
         email: adminEmail,
         password: hashedPassword,
       },
     });
 
     console.log(`✅ Admin user created: ${adminEmail}`);
-  } else {
-    console.log(`ℹ️ Admin user already exists: ${adminEmail}`);
+  }
+
+  const bookingCapKey: string = 'capacity';
+  const bookingCapValue: string = '10';
+  const existingBookingCapKey = await prisma.bookingConfig.findUnique({
+    where: { key: bookingCapKey },
+  });
+
+  if (!existingBookingCapKey) {
+    await prisma.bookingConfig.createMany({
+      data: {
+        key: bookingCapKey,
+        value: bookingCapValue,
+      },
+    });
+
+    console.log(
+      `✅ Booking ${bookingCapValue} key created with value of ${bookingCapValue}`,
+    );
   }
 }
 
