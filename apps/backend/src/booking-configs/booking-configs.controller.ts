@@ -15,8 +15,11 @@ export class BookingConfigsController {
   @Get()
   @ApiOperation({ summary: 'Get capacity value' })
   @ApiOkResponse({
-    type: String,
-    description: 'Get capacity value',
+    description: 'Get current booking capacity value',
+    schema: {
+      type: 'string',
+      example: '100',
+    },
   })
   @ApiInternalServerErrorResponse({
     description: 'Booking capacity configuration missing',

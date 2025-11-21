@@ -4,8 +4,19 @@ import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
+import { Button } from "../ui/button";
+import LogoutButton from "../auth/logout-button";
 
-export default function Navbar() {
+type NavbarProps = {
+  isAuthenticated: boolean;
+};
+
+type NavLinksProps = {
+  isAuthenticated: boolean;
+  onClick?: () => void;
+};
+
+export default function Navbar({ isAuthenticated }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = useCallback(() => {
@@ -28,7 +39,7 @@ export default function Navbar() {
 
         {/* Desktop Nav */}
         <div className="hidden md:flex gap-6 items-center">
-          <NavLinks />
+          <NavLinks isAuthenticated={isAuthenticated} />
         </div>
 
         {/* Mobile Toggle Button */}
@@ -49,17 +60,16 @@ export default function Navbar() {
         )}
       >
         <div className="flex flex-col items-center gap-2 pb-4">
-          <NavLinks onClick={closeMenu} />
+          <NavLinks isAuthenticated={isAuthenticated} onClick={closeMenu} />
         </div>
       </div>
     </nav>
   );
 }
 
-function NavLinks({ onClick }: { onClick?: () => void }) {
+function NavLinks({ isAuthenticated, onClick }: NavLinksProps) {
   const pathName = usePathname();
 
-  // List of menu links
   const links = useMemo(
     () => [
       {
@@ -67,22 +77,31 @@ function NavLinks({ onClick }: { onClick?: () => void }) {
         href: "/booking-list",
         label: "Booking list",
         isActive: pathName === "/booking-list",
+        needAccess: true,
       },
       {
         key: "booking-configs",
         href: "/booking-configs",
         label: "Config",
         isActive: pathName === "/booking-configs",
+        needAccess: true,
       },
       {
         key: "login",
-        href: "/login",
+        href: "/auth/login",
         label: "Login",
         isActive: pathName === "/login",
+        needAccess: false,
       },
     ],
     [pathName]
   );
+
+  const filteredLinks = links.filter((link) => {
+    if (link.key === "login" && isAuthenticated) return false;
+    if (link.needAccess && !isAuthenticated) return false;
+    return true;
+  });
 
   const navClass =
     "text-gray-700 font-medium bg-gradient-to-r from-black to-black bg-[length:0%_1px] bg-left-bottom bg-no-repeat transition-all duration-100 hover:text-black";
@@ -90,7 +109,7 @@ function NavLinks({ onClick }: { onClick?: () => void }) {
 
   return (
     <>
-      {links.map((item) => (
+      {filteredLinks.map((item) => (
         <Link
           key={item.key}
           href={item.href}
@@ -102,6 +121,7 @@ function NavLinks({ onClick }: { onClick?: () => void }) {
           {item.label}
         </Link>
       ))}
+      {isAuthenticated && <LogoutButton />}
     </>
   );
 }
