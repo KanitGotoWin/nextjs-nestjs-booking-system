@@ -31,7 +31,7 @@ export default function BookingList() {
         {data.bookings.length === 0 ? (
           <p className="text-gray-500 text-center py-4">No booking yet.</p>
         ) : (
-          <ul className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {data.bookings.map((b: Booking, i: number) => (
               <li
                 key={i}
