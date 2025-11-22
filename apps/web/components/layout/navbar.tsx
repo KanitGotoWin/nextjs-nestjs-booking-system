@@ -87,6 +87,13 @@ function NavLinks({ isAuthenticated, onClick }: NavLinksProps) {
         needAccess: true,
       },
       {
+        key: "gis",
+        href: "/gis",
+        label: "GIS",
+        isActive: pathName === "/gis",
+        needAccess: false,
+      },
+      {
         key: "login",
         href: "/auth/login",
         label: "Login",
