@@ -14,7 +14,7 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
-    "studio:test": "NODE_ENV=test pnpm --filter backend run studio:test"
+    "studio:test": "pnpm --filter backend run studio:test"
   },
   "devDependencies": {
     "prettier": "^3.6.2",
