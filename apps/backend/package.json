@@ -9,7 +9,7 @@
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
-    "dev": "pnpm prisma migrate deploy && pnpm run seed && nest start --watch & pnpm prisma studio",
+    "dev": "pnpm prisma migrate deploy && nest start --watch & pnpm prisma studio",
     "studio:dev": "pnpm prisma studio",
     "generate:jwt-secret": "node generate-jwt-secret.js",
     "seed": "ts-node --transpile-only prisma/seed.ts",
