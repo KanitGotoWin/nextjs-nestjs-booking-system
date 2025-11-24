@@ -15,6 +15,7 @@ This project is a **full-stack booking system** built using **NestJS (backend)**
 | Styling / UI            | TailwindCSS            |
 | UI Components           | shadcn/ui              |
 | Testing                 | Jest                   |
+| Api Documentation       | Swagger                |
 
 ## 🏷️ Features Overview
 
@@ -111,6 +112,10 @@ Before starting, make sure you have:
  ```bash
    pnpm dev
  ```
+
+## 🧪 Swagger API Documentation
+**Note:** 5005 is your nestjs port <br>
+http://localhost:5005/api
 
 
 ## 🧪 Testing
