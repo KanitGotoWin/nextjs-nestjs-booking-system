@@ -18,7 +18,7 @@ This project is a **full-stack booking system** built using **NestJS (backend)**
 
 ## 🏷️ Features Overview
 
-### Highlights
+### ✅ Highlights
 - Authentication
 - Booking system with validations
 - Cancel booking system via email with validations
