@@ -2,6 +2,7 @@
 
 This project is a **full-stack booking system** built using **NestJS (backend)** and **Next.js (frontend)**, managed via **Turborepo**. It includes configuration management, authentication, and full test coverage (unit + end-to-end), following **strict ESLint and TypeScript rules**.
 
+
 ### 🛠 Tech Stack
 
 | Layer / Purpose         | Technology / Tool      |
@@ -16,6 +17,14 @@ This project is a **full-stack booking system** built using **NestJS (backend)**
 | Testing                 | Jest                   |
 
 ## 🏷️ Features Overview
+
+### Highlights
+- Authentication
+- Booking system with validations
+- Cancel booking system via email with validations
+- Web socket to manage booking list fetching (admin page)
+- Web socket to manage booking seat notification (full or available)
+- Leaflet GIS map location detail using data from [nced.onep](https://nced.onep.go.th/dashboard.html)
 
 ### 🎫 Booking System (User)
 
