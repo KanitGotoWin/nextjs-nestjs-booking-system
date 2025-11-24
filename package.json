@@ -10,7 +10,7 @@
     "test": "pnpm test --filter=backend",
     "test:e2e": "pnpm --filter backend run test:e2e",
     "test:e2e-full": "pnpm --filter backend run test:e2e-full",
-    "launch": "node scripts/copy-env.js web && node scripts/copy-env.js backend && pnpm --filter backend run generate:jwt-secret && pnpm --filter backend prisma generate && pnpm dev",
+    "launch": "node scripts/copy-env.js web && node scripts/copy-env.js backend && pnpm --filter backend run generate:jwt-secret && pnpm --filter backend generate:prisma-client && pnpm dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types"
