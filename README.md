@@ -114,7 +114,7 @@ Before starting, make sure you have:
  ```
 
 ## Admin Account
-admin@admin.com
+admin@admin.com<br>
 admin1234
 
 ## 🧪 Swagger API Documentation
