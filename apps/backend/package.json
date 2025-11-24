@@ -24,10 +24,10 @@
     
     "generate:prisma-client": "pnpm prisma generate",
     "generate:jwt-secret-test": "node generate-jwt-secret-test.js",
-    "migrate:test": "NODE_ENV=test pnpm prisma db push",
-    "seed:test": "ts-node --transpile-only prisma/seed-test.ts",
-    "studio:test": "NODE_ENV=test pnpm prisma studio",
-    "test:e2e-full": "cross-env pnpm run generate:jwt-secret-test && pnpm run migrate:test && pnpm run seed:test && pnpm run test:e2e"
+    "migrate:test": "cross-env NODE_ENV=test pnpm prisma db push",
+    "studio:test": "cross-env NODE_ENV=test pnpm prisma studio",
+    "seed:test": "cross-env NODE_ENV=test ts-node --transpile-only prisma/seed-test.ts",
+    "test:e2e-full": "pnpm run generate:jwt-secret-test && pnpm run migrate:test && pnpm run seed:test && pnpm run test:e2e"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
