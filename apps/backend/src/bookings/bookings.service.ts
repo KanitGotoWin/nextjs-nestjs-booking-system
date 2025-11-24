@@ -6,7 +6,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { CreateBookingDto } from './dto/create-booking.dto';
-import { BookingsRepository } from './repositories/booking.repository';
+import { BookingsRepository } from './repositories/bookings.repository';
 import { BookingConfigsRepository } from 'src/booking-configs/repositories/booking-configs.repository';
 import { ServiceResponseBookingDto } from './dto/service-reponse-booking.dto';
 import { ListResponseBookingDto } from './dto/list-response-booking.dto';

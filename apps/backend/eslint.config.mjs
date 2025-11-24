@@ -6,7 +6,11 @@ import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
   {
-    ignores: ['eslint.config.mjs', 'generate-jwt-secret.js'],
+    ignores: [
+      'eslint.config.mjs',
+      'generate-jwt-secret.js',
+      'generate-jwt-secret-test.js',
+    ],
   },
   eslint.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,

@@ -10,6 +10,17 @@ services:
       - "5434:5432"
     volumes:
       - db-data-booking:/var/lib/postgresql/data
+  db-test:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: booking_test
+    ports:
+      - "5435:5432"
+    volumes:
+      - db-data-booking-test:/var/lib/postgresql/data
 
   pgadmin:
     image: dpage/pgadmin4
@@ -26,4 +37,5 @@ services:
 
 volumes:
   db-data-booking:
+  db-data-booking-test:
   pgadmin-data-booking:

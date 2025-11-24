@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { BookingsService } from './bookings.service';
 import { BookingsController } from './bookings.controller';
 import { PrismaModule } from 'src/prisma/prisma.module';
-import { BookingsRepository } from './repositories/booking.repository';
+import { BookingsRepository } from './repositories/bookings.repository';
 import { BookingConfigsRepository } from 'src/booking-configs/repositories/booking-configs.repository';
 import { BookingsGateway } from './bookings.gateway';
 

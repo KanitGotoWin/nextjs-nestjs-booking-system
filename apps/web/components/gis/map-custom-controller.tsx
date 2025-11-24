@@ -16,6 +16,7 @@ import React from "react";
 type Props = {
   center: [number, number];
   selectedFileName: string;
+  isLoading: boolean;
   onSelectFile: (fileName: string) => void;
 };
 
@@ -55,6 +56,7 @@ const navigationButton = [
 export default function MapCustomController({
   center,
   selectedFileName,
+  isLoading,
   onSelectFile,
 }: Props) {
   const map = useMap();
@@ -92,7 +94,7 @@ export default function MapCustomController({
               variant={
                 selectedFileName === btn.fileName ? "default" : "outline"
               }
-              disabled={selectedFileName === btn.fileName}
+              disabled={selectedFileName === btn.fileName || isLoading}
               className="cursor-pointer"
               size="sm"
             >

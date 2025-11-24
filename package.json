@@ -5,6 +5,7 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "generate:jwt-secret": "node ./apps/backend/generate-jwt-secret.js",
+    "generate:jwt-secret-test": "node ./apps/backend/generate-jwt-secret-test.js",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types"

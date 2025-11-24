@@ -22,7 +22,11 @@ const LNG_KEYWORDS = [
 ];
 
 export function normalizeCsvRow(row: RawCsvRowDto): CsvRowDto | null {
-  const normalized: CsvRowDto = { ...row } as any;
+  const normalized: CsvRowDto = {
+    ...row,
+    lat: undefined as unknown as number,
+    lng: undefined as unknown as number,
+  };
 
   for (const key of Object.keys(row)) {
     const value = row[key];

@@ -1,4 +1,6 @@
-// import dotenv from 'dotenv';
+import dotenv from 'dotenv';
+dotenv.config({ path: '.env.test', override: true });
+
 import bcrypt from 'bcrypt';
 import { PrismaClient } from '@prisma/client';
 

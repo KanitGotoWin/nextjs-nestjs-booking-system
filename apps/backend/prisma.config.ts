@@ -1,5 +1,5 @@
-import { defineConfig, env } from 'prisma/config';
 import dotenv from 'dotenv';
+import { defineConfig, env } from 'prisma/config';
 import fs from 'fs';
 
 if (fs.existsSync('.env')) {
@@ -7,6 +7,11 @@ if (fs.existsSync('.env')) {
 } else {
   dotenv.config({ path: '.env.example' });
 }
+
+dotenv.config({
+  path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env',
+  override: true,
+});
 
 export default defineConfig({
   schema: 'prisma/schema.prisma',

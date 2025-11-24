@@ -15,6 +15,36 @@
   }
 }
 
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateX(80px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes showing {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.animate-fadein {
+  animation: fadeIn .2s ease-out forwards;
+}
+
+.animate-showing {
+  animation: showing .3s ease-out forwards;
+}
+
 .animate-fadeInSmooth {
   animation: fadeInSmooth .25s cubic-bezier(0.65, 0, 0.35, 1) forwards;
 }

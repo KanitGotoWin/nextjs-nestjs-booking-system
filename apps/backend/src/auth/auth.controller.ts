@@ -5,7 +5,6 @@ import {
   HttpCode,
   HttpStatus,
   Res,
-  Get,
   UseGuards,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
@@ -24,12 +23,13 @@ export class AuthController {
     summary: 'Login as admin and receive JWT in httpOnly cookie',
   })
   @ApiBody({ type: LoginDto })
+  @HttpCode(200)
   @ApiResponse({ status: 200, description: 'Admin successfully logged in' })
   @ApiResponse({ status: 401, description: 'Invalid credentials' })
   async login(
     @Body() loginDto: LoginDto,
     @Res({ passthrough: true }) res: Response,
-  ) {
+  ): Promise<{ message: string }> {
     const { accessToken } = await this.authService.login(loginDto);
 
     res.cookie('access_token', accessToken, {
@@ -44,11 +44,16 @@ export class AuthController {
   }
 
   @Post('logout')
+  @HttpCode(204)
   @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Logout admin by clearing JWT cookie' })
-  @ApiResponse({ status: 200, description: 'Admin successfully logged out' })
+  @ApiResponse({
+    status: 204,
+    description: 'Admin successfully logged out without content',
+  })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  logout(@Res({ passthrough: true }) res: Response): void {
+  async logout(@Res({ passthrough: true }) res: Response): Promise<void> {
     res.clearCookie('access_token');
+    return Promise.resolve();
   }
 }

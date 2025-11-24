@@ -16,7 +16,7 @@ export default function BookingSection() {
     >
       <div className="absolute inset-0 bg-black/50"></div>
       <div className="relative z-10 flex flex-col items-center justify-center h-full px-4">
-        <div className="bg-gray-50 py-[3rem] px-[4rem] lg:px-[7.5rem] rounded-xl">
+        <div className="bg-gray-50 py-[3rem] px-[4rem] lg:px-[7.5rem] rounded-xl animate-showing">
           <div className="mb-6">
             <BookingFormSwitch
               showCancelForm={showCancelForm}
