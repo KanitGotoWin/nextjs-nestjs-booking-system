@@ -2,6 +2,7 @@
   "name": "booking",
   "private": true,
   "scripts": {
+    "postinstall": "pnpm --filter backend prisma generate",
     "build": "turbo run build",
     "dev": "turbo run dev",
     "generate:jwt-secret": "node ./apps/backend/generate-jwt-secret.js",
