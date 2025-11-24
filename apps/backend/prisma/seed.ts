@@ -2,7 +2,7 @@
 import bcrypt from 'bcrypt';
 import { PrismaClient } from '@prisma/client';
 
-const prisma = new PrismaClient();
+const prisma: PrismaClient = new PrismaClient();
 
 async function main() {
   const adminName: string = 'Admin';
@@ -52,6 +52,6 @@ main()
     console.error(e);
     process.exit(1);
   })
-  .finally(() => {
-    prisma.$disconnect();
+  .finally(async () => {
+    await prisma.$disconnect();
   });

@@ -4,7 +4,7 @@ dotenv.config({ path: '.env.test', override: true });
 import bcrypt from 'bcrypt';
 import { PrismaClient } from '@prisma/client';
 
-const prisma = new PrismaClient();
+const prisma: PrismaClient = new PrismaClient();
 
 async function main() {
   const adminName: string = 'Admin';
@@ -28,25 +28,6 @@ async function main() {
 
     console.log(`✅ Admin user created: ${adminEmail}`);
   }
-
-  const bookingCapKey: string = 'capacity';
-  const bookingCapValue: string = '10';
-  const existingBookingCapKey = await prisma.bookingConfig.findUnique({
-    where: { key: bookingCapKey },
-  });
-
-  if (!existingBookingCapKey) {
-    await prisma.bookingConfig.createMany({
-      data: {
-        key: bookingCapKey,
-        value: bookingCapValue,
-      },
-    });
-
-    console.log(
-      `✅ Booking ${bookingCapValue} key created with value of ${bookingCapValue}`,
-    );
-  }
 }
 
 main()
@@ -54,6 +35,6 @@ main()
     console.error(e);
     process.exit(1);
   })
-  .finally(() => {
-    prisma.$disconnect();
+  .finally(async () => {
+    await prisma.$disconnect();
   });

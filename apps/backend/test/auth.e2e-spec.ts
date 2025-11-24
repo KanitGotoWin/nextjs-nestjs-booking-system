@@ -11,7 +11,7 @@ import cookieParser from 'cookie-parser';
 const ADMIN_EMAIL = 'admin@admin.com';
 const ADMIN_PASSWORD = 'admin1234';
 
-describe('AuthController (e2e)', () => {
+describe('Auth (e2e)', () => {
   let app: INestApplication<App>;
 
   beforeAll(async () => {
