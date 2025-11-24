@@ -6,6 +6,10 @@
     "dev": "turbo run dev",
     "generate:jwt-secret": "node ./apps/backend/generate-jwt-secret.js",
     "generate:jwt-secret-test": "node ./apps/backend/generate-jwt-secret-test.js",
+    "test": "pnpm test --filter=backend",
+    "test:e2e": "pnpm --filter backend run test:e2e",
+    "test:e2e-full": "pnpm --filter backend run test:e2e-full",
+    "launch": "node scripts/copy-env.js web && node scripts/copy-env.js backend && pnpm --filter backend run generate:jwt-secret && pnpm --filter backend run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types"
