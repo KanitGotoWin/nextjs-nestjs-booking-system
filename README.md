@@ -113,6 +113,10 @@ Before starting, make sure you have:
    pnpm dev
  ```
 
+## Admin Account
+admin@admin.com
+admin1234
+
 ## 🧪 Swagger API Documentation
 **Note:** 5005 is your nestjs port <br>
 http://localhost:5005/api
