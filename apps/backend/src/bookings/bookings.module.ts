@@ -3,17 +3,12 @@ import { BookingsService } from './bookings.service';
 import { BookingsController } from './bookings.controller';
 import { PrismaModule } from 'src/prisma/prisma.module';
 import { BookingsRepository } from './repositories/bookings.repository';
-import { BookingConfigsRepository } from 'src/booking-configs/repositories/booking-configs.repository';
 import { BookingsGateway } from './bookings.gateway';
+import { BookingConfigsModule } from 'src/booking-configs/booking-configs.module';
 
 @Module({
-  imports: [PrismaModule],
+  imports: [PrismaModule, BookingConfigsModule],
   controllers: [BookingsController],
-  providers: [
-    BookingsService,
-    BookingsRepository,
-    BookingConfigsRepository,
-    BookingsGateway,
-  ],
+  providers: [BookingsService, BookingsRepository, BookingsGateway],
 })
 export class BookingsModule {}

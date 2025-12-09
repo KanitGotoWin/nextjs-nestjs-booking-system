@@ -11,6 +11,8 @@ import MapFailAlert from "./map-fail-alert";
 import { useRouter, useSearchParams } from "next/navigation";
 import "leaflet-defaulticon-compatibility";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
+import Underline from "../ui/underline";
+import MapGoogleExternal from "./map-google-external";
 
 export default function Map() {
   const router = useRouter();
@@ -81,6 +83,11 @@ export default function Map() {
                           <b>{k}</b>: {v}
                         </div>
                       ))}
+                    <Underline />
+                    <MapGoogleExternal
+                      lat={feature.geometry.coordinates[1]}
+                      lng={feature.geometry.coordinates[0]}
+                    />
                   </Popup>
                 </Marker>
               );
@@ -108,6 +115,12 @@ export default function Map() {
                           <b>{k}</b>: {v}
                         </div>
                       ))}
+
+                    <Underline />
+                    <MapGoogleExternal
+                      lat={feature.geometry.coordinates[1]}
+                      lng={feature.geometry.coordinates[0]}
+                    />
                   </Popup>
                 </Marker>
               );

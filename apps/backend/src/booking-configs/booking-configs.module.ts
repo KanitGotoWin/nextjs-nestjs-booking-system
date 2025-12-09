@@ -8,5 +8,6 @@ import { BookingConfigsRepository } from './repositories/booking-configs.reposit
   imports: [PrismaModule],
   controllers: [BookingConfigsController],
   providers: [BookingConfigsService, BookingConfigsRepository],
+  exports: [BookingConfigsRepository],
 })
 export class BookingConfigsModule {}
