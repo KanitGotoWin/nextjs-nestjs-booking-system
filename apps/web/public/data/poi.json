@@ -1,0 +1,15 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "name": "CentralWorld" },
+      "geometry": { "type": "Point", "coordinates": [100.5392, 13.7460] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Siam Paragon" },
+      "geometry": { "type": "Point", "coordinates": [100.5340, 13.7463] }
+    }
+  ]
+}

@@ -93,6 +93,13 @@ function NavLinks({ isAuthenticated, onClick }: NavLinksProps) {
         needAccess: false,
       },
       {
+        key: "maplibre",
+        href: "/maplibre",
+        label: "Maplibre",
+        isActive: pathName === "/maplibre",
+        needAccess: false,
+      },
+      {
         key: "login",
         href: "/auth/login",
         label: "Login",

@@ -1,6 +1,6 @@
 services:
   db:
-    image: postgres:15
+    image: postgis/postgis:15-3.3
     restart: always
     environment:
       POSTGRES_USER: postgres
@@ -11,7 +11,7 @@ services:
     volumes:
       - db-data-booking:/var/lib/postgresql/data
   db-test:
-    image: postgres:15
+    image: postgis/postgis:15-3.3
     restart: always
     environment:
       POSTGRES_USER: postgres

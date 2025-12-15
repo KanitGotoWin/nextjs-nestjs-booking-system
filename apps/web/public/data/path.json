@@ -1,0 +1,18 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "name": "Sample Route" },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [100.531, 13.745],
+          [100.533, 13.7455],
+          [100.535, 13.746],
+          [100.538, 13.7462]
+        ]
+      }
+    }
+  ]
+}
